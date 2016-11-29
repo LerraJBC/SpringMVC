@@ -1,7 +1,7 @@
 package net.lerraj.spring.model;
 
 public class Students {
-	private int id;
+	private long id;
 	private String firstname;
 	private String lastname;
 	private int age;
@@ -22,11 +22,11 @@ public class Students {
 	}
 	
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

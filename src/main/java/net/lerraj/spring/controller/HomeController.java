@@ -31,6 +31,7 @@ public class HomeController {
 		return model;
 	}
 	
+	
 	@RequestMapping(value = "/newStudent", method = RequestMethod.GET)
 	public ModelAndView newStudent(ModelAndView model) {
 		Students newStudent = new Students();
