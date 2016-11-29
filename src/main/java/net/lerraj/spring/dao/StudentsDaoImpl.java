@@ -22,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.io.File;
 import java.io.FileWriter;
@@ -48,7 +49,33 @@ public class StudentsDaoImpl implements StudentsDao {
 	
 
 	public void saveOrUpdate(Students student) {
-		
+		if (student.getId() > 0) {
+			try{
+				JSONObject jsonObject = fileUtil.getFileJSONObject();
+				JSONArray arr = (JSONArray) jsonObject.get("Students");
+				
+				Iterator itr = arr.iterator();
+		        while (itr.hasNext()) {
+		            JSONObject obj = (JSONObject) itr.next();
+		            if (obj.get("id").equals(student.getId())) {
+		            	obj.put("firstname", student.getFirstname());
+		            	obj.put("lastname", student.getLastname());
+		            	obj.put("age", student.getAge());
+		            	obj.put("gender", student.getGender());
+		            	obj.put("contact", student.getContact());
+		            	obj.put("address", student.getAddress());
+
+		            }
+		            fileUtil.writeToFile(jsonObject);
+		        }
+				
+			}
+			catch(Exception e){
+				
+			}
+			
+		}
+		else{
 		try{
 			  	
 			  	JSONObject jsonObject = fileUtil.getFileJSONObject();
@@ -73,6 +100,7 @@ public class StudentsDaoImpl implements StudentsDao {
 	    {
 	      
 	    }
+		}
 		
 		
 		/**if (student.getId() > 0) {
@@ -91,10 +119,26 @@ public class StudentsDaoImpl implements StudentsDao {
 		
 	}
 
-	public void delete(int studentId) {
-		String sql = "DELETE FROM personal_info WHERE id=?";
+	public void delete(long studentId) {
+		
+		JSONObject jsonObject = fileUtil.getFileJSONObject();
+		JSONArray arr = (JSONArray) jsonObject.get("Students");
+		
+		Iterator itr = arr.iterator();
+        while (itr.hasNext()) {
+            JSONObject obj = (JSONObject) itr.next();
+            if (obj.get("id").equals(studentId)) {
+                itr.remove();
+            }
+            fileUtil.writeToFile(jsonObject);
+        }
+        
+        
+		
+		/**String sql = "DELETE FROM personal_info WHERE id=?";
 		jdbcTemplate.update(sql, studentId);
-	}
+	**/
+		}
 
 	public List<Students> list() {
 		

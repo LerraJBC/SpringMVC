@@ -8,7 +8,7 @@ public interface StudentsDao {
 	
 	public void saveOrUpdate(Students student);
 	
-	public void delete(int studentId);
+	public void delete(long studentId);
 	
 	public Students get(int studentId);
 	

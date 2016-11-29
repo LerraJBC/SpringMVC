@@ -14,7 +14,7 @@
 		<h1>New/Edit Student</h1>
 		<form:form action="saveStudent" method="post" modelAttribute="student">
 		<table>
-			<form:hidden path="id"/>
+			<form:input path="id"/>
 			<tr>
 				<td>First Name:</td>
 				<td><form:input path="firstname" /></td>
