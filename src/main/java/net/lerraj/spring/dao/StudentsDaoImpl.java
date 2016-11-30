@@ -77,7 +77,17 @@ public class StudentsDaoImpl implements StudentsDao {
 		}
 		else{
 		try{
+			  	if(		   student.getFirstname().equals("") 
+			  			&& student.getLastname().equals("")
+			  			&& student.getAge() == 0
+			  			&& student.getGender().equals("")
+			  			&& student.getContact().equals("")
+			  			&& student.getAddress().equals("")
+			  			){
+			  		System.out.println("Please complete all the fields");
+			  	}
 			  	
+			  	else{
 			  	JSONObject jsonObject = fileUtil.getFileJSONObject();
 		        
 			    JSONObject newJSON = new JSONObject();
@@ -93,7 +103,7 @@ public class StudentsDaoImpl implements StudentsDao {
 
 			    fileUtil.appendToList(jsonObject, newJSON);
 			    fileUtil.writeToFile(jsonObject);
-		
+			  	}
 		
 		}
 		catch (Exception e)
@@ -143,28 +153,26 @@ public class StudentsDaoImpl implements StudentsDao {
 	public List<Students> list() {
 		
 		List<Students> listStudents = new ArrayList<Students>();
-		JSONObject jsonObj = JSONFileUtil.getFileJSONObject();
+		JSONObject jsonObject = JSONFileUtil.getFileJSONObject();
+		 JSONArray arr = (JSONArray) jsonObject.get("Students");  
 		
-		try{
-		
-		for (Object key : jsonObj.keySet()) {
-            JSONObject jsonObject = (JSONObject) key;
-            Students student = new Students();
+		 for (Object aJsonArray : arr) {
+	            jsonObject= (JSONObject) aJsonArray;
+	            Students student = new Students();
+	            
+	            
+	            student.setId((Long) jsonObject.get("id"));
+	            student.setFirstname((String) jsonObject.get("firstname"));
+	            student.setLastname((String) jsonObject.get("lastname"));
+	            student.setAge((Long) jsonObject.get("age"));
+	            student.setGender((String) jsonObject.get("gender"));
+	            student.setContact((String) jsonObject.get("contact"));
+	            student.setAddress((String) jsonObject.get("address"));
 
-            student.setId((Long) jsonObject.get("id"));
-            student.setFirstname((String) jsonObject.get("firstname"));
-            student.setLastname((String) jsonObject.get("lastname"));
-            student.setAge((int) jsonObject.get("age"));
-            student.setGender((String) jsonObject.get("gender"));
-            student.setContact((String) jsonObject.get("contact"));
-            student.setAddress((String) jsonObject.get("address"));
+	            listStudents.add(student);
+	        }
 
-            listStudents.add(student);
-        }
-		}
-		catch(Exception e){
-			
-		}
+	
 		/**
 		String sql = "SELECT * FROM personal_info";
 		List<Students> listStudents = jdbcTemplate.query(sql, new RowMapper<Students>() {
@@ -185,6 +193,7 @@ public class StudentsDaoImpl implements StudentsDao {
 			
 		});
 		**/
+		
 		return listStudents;
 	}
 

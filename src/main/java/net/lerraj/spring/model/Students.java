@@ -1,10 +1,9 @@
 package net.lerraj.spring.model;
 
 public class Students {
-	private long id;
+	private long id, age;
 	private String firstname;
 	private String lastname;
-	private int age;
 	private String gender;
 	private String contact;
 	private String address;
@@ -46,11 +45,11 @@ public class Students {
 		this.lastname = lastname;
 	}
 	
-	public int getAge() {
+	public long getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(long age) {
 		this.age = age;
 	}
 	public String getGender() {

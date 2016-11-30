@@ -22,19 +22,19 @@
 	        	<th>Address</th>
 	        	<th>Action</th>
 	        	
-				<c:forEach var="student" items="${listStudents}" varStatus="status">
+				<c:forEach var="Students" items="${listStudents}" varStatus="status">
 	        	<tr>
-	        		<td>${student.id}</td>
-					<td>${student.firstname}</td>
-					<td>${student.lastname}</td>
-					<td>${student.age}</td>
-					<td>${student.gender}</td>
-					<td>${student.contact}</td>
-					<td>${student.address}</td>
+	        		<td>${Students.id}</td>
+					<td>${Students.firstname}</td>
+					<td>${Students.lastname}</td>
+					<td>${Students.age}</td>
+					<td>${Students.gender}</td>
+					<td>${Students.contact}</td>
+					<td>${Students.address}</td>
 					<td>
-						<a href="editStudent?id=${student.id}">Edit</a>
+						<a href="editStudent?id=${Students.id}">Edit</a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="deleteStudent?id=${student.id}">Delete</a>
+						<a href="deleteStudent?id=${Students.id}">Delete</a>
 					</td>
 							
 	        	</tr>
