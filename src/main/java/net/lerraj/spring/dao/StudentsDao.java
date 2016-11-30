@@ -10,7 +10,7 @@ public interface StudentsDao {
 	
 	public void delete(long studentId);
 	
-	public Students get(int studentId);
+	public Students get(long studentId);
 	
 	public List<Students> list();
 }

@@ -197,7 +197,31 @@ public class StudentsDaoImpl implements StudentsDao {
 		return listStudents;
 	}
 
-	public Students get(int studentId) {
+	public Students get(long studentId) {
+		
+		Students student = new Students();
+
+        JSONObject jsonObject = JSONFileUtil.getFileJSONObject();
+		 JSONArray arr = (JSONArray) jsonObject.get("Students"); 
+
+        for (Object aJsonArray : arr) {
+            jsonObject = (JSONObject) aJsonArray;
+            if (jsonObject.get("id").equals(studentId)) {
+            	 student.setId((Long) jsonObject.get("id"));
+ 	            student.setFirstname((String) jsonObject.get("firstname"));
+ 	            student.setLastname((String) jsonObject.get("lastname"));
+ 	            student.setAge((Long) jsonObject.get("age"));
+ 	            student.setGender((String) jsonObject.get("gender"));
+ 	            student.setContact((String) jsonObject.get("contact"));
+ 	            student.setAddress((String) jsonObject.get("address"));
+
+                break;
+            }
+        }
+
+        return student;
+		
+		/**
 		String sql = "SELECT * FROM personal_info WHERE id=" + studentId;
 		return jdbcTemplate.query(sql, new ResultSetExtractor<Students>() {
 
@@ -219,6 +243,7 @@ public class StudentsDaoImpl implements StudentsDao {
 			}
 			
 		});
+		**/
 	}
 	
 }
