@@ -12,6 +12,21 @@
     	<div align="center">
 	        <h1>Student List</h1>
 	        <h3><a href="newStudent">New Student</a></h3>
+	        <h1>Search Student by Name:</h1>
+	        <form action="searchStudentbyName" method="post">
+            <input type="text" name="searchValue" />
+            <input type="submit" value="Search" />
+        </form>
+        <br /><br />
+        <form action="sortStudentList" method="post">
+            Sort by:
+            <select name="sortValue">
+                <option value="id">ID</option>
+                <option value="firstname">First Name</option>
+            </select>
+            <input type="submit" value="Submit" />
+        </form>
+        
 	        <table border="1">
 	        	<th>ID</th>
 	        	<th>First Name</th>
@@ -40,6 +55,8 @@
 	        	</tr>
 				</c:forEach>	       	
 			</table>
+			
+			<h3></h3><a href="./">View All Student List</a></h3>
     	</div>
     </body>
 </html>

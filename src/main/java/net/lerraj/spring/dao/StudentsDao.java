@@ -13,4 +13,8 @@ public interface StudentsDao {
 	public Students get(long studentId);
 	
 	public List<Students> list();
+
+	public List<Students> getSorted(final String sortValue);
+	
+	public List<Students> getStudentListByName(String searchValue);
 }

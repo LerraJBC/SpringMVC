@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -35,6 +37,10 @@ import javax.json.JsonStructure;
 import javax.json.JsonWriter;
 import javax.json.JsonWriterFactory;
 import javax.json.stream.JsonGenerator;
+
+import org.boon.*;
+import org.boon.criteria.Sort;
+import org.boon.criteria.SortType;
 
 
 public class StudentsDaoImpl implements StudentsDao {
@@ -193,10 +199,11 @@ public class StudentsDaoImpl implements StudentsDao {
 			
 		});
 		**/
-		
+		 
 		return listStudents;
 	}
 
+	
 	public Students get(long studentId) {
 		
 		Students student = new Students();
@@ -245,5 +252,70 @@ public class StudentsDaoImpl implements StudentsDao {
 		});
 		**/
 	}
+	
+	public List<Students> getSorted(final String sortValue) {
+      
+
+		 List<Students> listStudents = new ArrayList<Students>();
+			JSONObject jsonObject = JSONFileUtil.getFileJSONObject();
+			 JSONArray arr = (JSONArray) jsonObject.get("Students");  
+			
+			 for (Object aJsonArray : arr) {
+		            jsonObject= (JSONObject) aJsonArray;
+		            Students student = new Students();
+		            
+		            
+		            student.setId((Long) jsonObject.get("id"));
+		            student.setFirstname((String) jsonObject.get("firstname"));
+		            student.setLastname((String) jsonObject.get("lastname"));
+		            student.setAge((Long) jsonObject.get("age"));
+		            student.setGender((String) jsonObject.get("gender"));
+		            student.setContact((String) jsonObject.get("contact"));
+		            student.setAddress((String) jsonObject.get("address"));
+
+		            listStudents.add(student);
+		        }
+
+        if (sortValue.equals("firstname")) {
+            Collections.sort(listStudents, new Comparator<Students>() {
+                @Override
+                public int compare(Students o1, Students o2) {
+                    return o1.getFirstname().compareTo(o2.getFirstname());
+                }
+            });
+        }
+
+        return listStudents;
+
+    }
+	
+	@Override
+    public List<Students> getStudentListByName(String searchValue) {
+      
+        List<Students> listStudents = new ArrayList<Students>();
+        JSONObject jsonObject = JSONFileUtil.getFileJSONObject();
+		 JSONArray arr = (JSONArray) jsonObject.get("Students"); 
+
+        for (Object aJsonArray : arr) {
+            jsonObject = (JSONObject) aJsonArray;
+
+            if (jsonObject.containsValue(searchValue)) {
+                Students student = new Students();
+
+                student.setId((Long) jsonObject.get("id"));
+	            student.setFirstname((String) jsonObject.get("firstname"));
+	            student.setLastname((String) jsonObject.get("lastname"));
+	            student.setAge((Long) jsonObject.get("age"));
+	            student.setGender((String) jsonObject.get("gender"));
+	            student.setContact((String) jsonObject.get("contact"));
+	            student.setAddress((String) jsonObject.get("address"));
+
+                listStudents.add(student);
+            }
+        }
+
+        return listStudents;
+    }
+
 	
 }

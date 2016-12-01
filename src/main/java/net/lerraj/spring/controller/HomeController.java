@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -62,4 +63,26 @@ public class HomeController {
 		
 		return model;
 	}
+	
+	@RequestMapping(value = "/sortStudentList", method = RequestMethod.POST)
+    public ModelAndView sortStudentList(@RequestParam String sortValue) {
+        ModelAndView model = new ModelAndView();
+        List<Students> listStudents = studentsDao.getSorted(sortValue);
+
+        model.addObject("listStudents", listStudents);
+        model.setViewName("home");
+
+        return model;
+    }
+	
+	   @RequestMapping(value = "/searchStudentbyName", method = RequestMethod.POST)
+	    public ModelAndView searchStudentByName(@RequestParam String searchValue) {
+	        ModelAndView model = new ModelAndView();
+	        List<Students> listStudents = studentsDao.getStudentListByName(searchValue);
+
+	        model.addObject("listStudents", listStudents);
+	        model.setViewName("home");
+
+	        return model;
+	    }
 }
